@@ -19,7 +19,11 @@ router.post('/api/addDynamics',function(req,res){
 	})
 })
 router.get('/api/dynamics',function(req,res){
-	models.Dynamic.find(function(err,data){
+	models.Dynamic.find({},null,{
+		sort:{
+			'_id':-1
+		}
+	},function(err,data){
 		if (err) {
             res.send(err);
         } else {
