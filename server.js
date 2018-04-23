@@ -1,8 +1,12 @@
 var express = require('express');
 var app = express();
-var api=require('./routes/index')
+var api=require('./routes/publish')
 
 app.set('port', (process.env.PORT || 9999));
+
+const bodyParser = require('body-parser')
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(api)
 
