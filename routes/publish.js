@@ -56,4 +56,38 @@ router.post('/api/user/addUser',function(req,res){
 		})
 	
 })
+
+router.get('/api/user/getUser',function(req,res){
+	var openId=req.query.openId
+	models.User.findOne({openId:openId},function(err,user){
+		if(err){
+			res.json({status:500,msg:err})
+		}else{
+			if(user){
+				res.json({status:200,user:user,msg:'success'})
+			}else{
+				res.json({status:404,msg:'not found'})
+			}
+		}
+		
+	})
+})
+router.get('/api/user/getDynamic',function(req,res){
+	var openId=req.query.openId
+	models.Dynamic.find({'user.openId':openId},null,{
+		sort:{
+			'_id':-1
+		}
+	},function(err,data){
+		if(err){
+			res.json({status:500,msg:err})
+		}else{
+			if(data){
+				res.json({status:200,data:data,msg:'success'})
+			}else{
+				res.json({status:404,msg:'not found'})
+			}
+		}
+	})
+})
 module.exports=router
