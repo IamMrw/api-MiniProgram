@@ -90,4 +90,23 @@ router.get('/api/user/getDynamic',function(req,res){
 		}
 	})
 })
+
+router.post('/api/user/setting',function(req,res){
+	var openId=req.body.openId
+	models.User.update({openId:openId},{
+		$set:{
+			realName:req.body.realName,
+			sex:req.body.sex,
+			intro:req.body.intro,
+			major:req.body.major,
+			enrollmentYear:req.body.enrollmentYear
+	}
+},function(err,data){
+		if(err){
+			res.json({status:500,msg:err})
+		}else{
+			res.json({status:200,msg:'success'})
+		}
+	})
+})
 module.exports=router

@@ -20,10 +20,11 @@ var User=new Schema({
 	nickName:String,
 	realName:String,
 	openId:String,
+	intro:String,
 	sex:String,
 	avatar:String,
-	school:String,
-	major:String
+	major:String,
+	enrollmentYear:String
 })
 
 mongoose.connect('mongodb://localhost/alumni')
