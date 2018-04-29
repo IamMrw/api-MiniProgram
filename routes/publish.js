@@ -36,9 +36,13 @@ router.get('/api/dynamics',function(req,res){
 router.post('/api/user/addUser',function(req,res){
 	var id=req.body.openId
 	models.User.findOne({openId:id},
-		function(err,user){
+		function(error,user){
+			if(error){
+				res.json({msg:err,status:500})
+				return;
+			}
 			if(user){
-				res.json({msg:"重新登录成功",status:200,user:user})
+				res.json({msg:"重新登录成功",status:300,user:user})
 			}else{
 				var user=new models.User
 				user.nickName=req.body.nickName
@@ -47,7 +51,7 @@ router.post('/api/user/addUser',function(req,res){
 				user.openId=req.body.openId
 				user.save(function(err){
 					if(err){
-						res.json({err:err,status:500})
+						res.json({msg:err,status:500})
 					}else{
 						res.json({msg:"登录成功",status:200})
 					}
@@ -106,6 +110,17 @@ router.post('/api/user/setting',function(req,res){
 			res.json({status:500,msg:err})
 		}else{
 			res.json({status:200,msg:'success'})
+		}
+	})
+})
+
+router.get('/api/getDynamic',function(req,res){
+	var id=req.query.id
+	models.Dynamic.findOne({_id:id},function(err,data){
+		if(err){
+			res.json({status:500,msg:err})
+		}else{
+			res.json({status:200,msg:'success',data:data})
 		}
 	})
 })
