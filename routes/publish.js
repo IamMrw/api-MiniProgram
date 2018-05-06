@@ -46,7 +46,7 @@ router.post('/api/user/addUser',function(req,res){
 			}else{
 				var user=new models.User
 				user.nickName=req.body.nickName
-				user.avatar=req.body.avatarUrl
+				user.avatarUrl=req.body.avatarUrl
 				user.sex=req.body.gender
 				user.openId=req.body.openId
 				user.save(function(err){
@@ -124,4 +124,6 @@ router.get('/api/getDynamic',function(req,res){
 		}
 	})
 })
+
+
 module.exports=router

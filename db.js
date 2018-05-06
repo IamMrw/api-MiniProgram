@@ -22,7 +22,7 @@ var User=new Schema({
 	openId:String,
 	intro:String,
 	sex:String,
-	avatar:String,
+	avatarUrl:String,
 	major:String,
 	enrollmentYear:String
 })
