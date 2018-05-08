@@ -1,39 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const models=require('../db');
-
-router.post('/api/addDynamics',function(req,res){
-	var user=req.body.user
-	var dynamic=new models.Dynamic
-		dynamic.article_id="001"
-		dynamic.title=req.body.title
-		dynamic.content=req.body.content
-		dynamic.p_time=Math.ceil(Date.now()/1000)
-		dynamic.user=user
-	dynamic.save(function(err){
-		if(err){
-			res.json({"err":err,status:500})
-		}else{
-			res.json({content:"发表成功",status:200})
-		}
-	})
-})
-router.get('/api/dynamics',function(req,res){
-	models.Dynamic.find({},null,{
-		sort:{
-			'_id':-1
-		}
-	},function(err,data){
-		if (err) {
-            res.send(err);
-        } else {
-            res.send(data);
-        }
-	})
-})
-
-
-router.post('/api/user/addUser',function(req,res){
+router.post('/addUser',function(req,res){
 	var id=req.body.openId
 	models.User.findOne({openId:id},
 		function(error,user){
@@ -61,7 +29,7 @@ router.post('/api/user/addUser',function(req,res){
 	
 })
 
-router.get('/api/user/getUser',function(req,res){
+router.get('/getUser',function(req,res){
 	var openId=req.query.openId
 	models.User.findOne({openId:openId},function(err,user){
 		if(err){
@@ -76,7 +44,7 @@ router.get('/api/user/getUser',function(req,res){
 		
 	})
 })
-router.get('/api/user/getDynamic',function(req,res){
+router.get('/getDynamic',function(req,res){
 	var openId=req.query.openId
 	models.Dynamic.find({'user.openId':openId},null,{
 		sort:{
@@ -95,7 +63,7 @@ router.get('/api/user/getDynamic',function(req,res){
 	})
 })
 
-router.post('/api/user/setting',function(req,res){
+router.post('/setting',function(req,res){
 	var openId=req.body.openId
 	models.User.update({openId:openId},{
 		$set:{
@@ -114,16 +82,6 @@ router.post('/api/user/setting',function(req,res){
 	})
 })
 
-router.get('/api/getDynamic',function(req,res){
-	var id=req.query.id
-	models.Dynamic.findOne({_id:id},function(err,data){
-		if(err){
-			res.json({status:500,msg:err})
-		}else{
-			res.json({status:200,msg:'success',data:data})
-		}
-	})
-})
 
 
 module.exports=router
