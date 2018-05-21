@@ -30,10 +30,10 @@ var Comment=new Schema({
 	content:String,
 	c_time:{type:String,default:Math.ceil(Date.now()/1000)},
 	article_id:String,
-	user_info:{
+	user:{
 		nickName:String,
 		realName:String,
-		avatarUrl:String,
+		avatar:String,
 		sex:String,
 		openId:String
 	}
