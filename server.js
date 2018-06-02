@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var index=require('./routes/index')
 var dynamic=require('./routes/dynamic')
+var job=require('./routes/job')
 var user=require('./routes/user')
 var comment=require('./routes/comment')
 
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/api',index)
 app.use('/api/p',dynamic)
+app.use('/api/j',job)
 app.use('/api/user',user)
 app.use('/api/comment',comment)
 

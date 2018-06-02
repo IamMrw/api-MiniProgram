@@ -62,6 +62,16 @@ router.get('/getDynamic',function(req,res){
 		}
 	})
 })
+router.delete('/deleteDynamic',function(req,res){
+	var id=req.body.id
+	models.Dynamic.findOneAndRemove({_id:id},function(err,data){
+		if(err){
+			res.json({status:500,msg:err})
+		}else{
+			res.json({status:200,msg:'success',data:data})
+		}
+	})
+})
 
 router.post('/setting',function(req,res){
 	var openId=req.body.openId
@@ -81,7 +91,5 @@ router.post('/setting',function(req,res){
 		}
 	})
 })
-
-
 
 module.exports=router

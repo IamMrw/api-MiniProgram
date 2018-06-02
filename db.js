@@ -3,7 +3,6 @@ var mongoose = require('mongoose')
 var Schema=mongoose.Schema
 
 var Dynamic=new Schema({
-	article_id:String,
 	title:String,
 	content:String,
 	p_time:String,
@@ -15,7 +14,19 @@ var Dynamic=new Schema({
 		openId:String
 	}
 })
-
+var Job=new Schema({
+	title:String,
+	content:String,
+	p_time:String,
+	type:String,
+	user:{
+		nickName:String,
+		realName:String,
+		avatarUrl:String,
+		sex:String,
+		openId:String
+	}
+})
 var User=new Schema({
 	nickName:String,
 	realName:String,
@@ -33,7 +44,7 @@ var Comment=new Schema({
 	user:{
 		nickName:String,
 		realName:String,
-		avatar:String,
+		avatarUrl:String,
 		sex:String,
 		openId:String
 	}
@@ -43,5 +54,6 @@ var Comment=new Schema({
 mongoose.connect('mongodb://localhost/alumni')
 
 exports.Dynamic=mongoose.model('Dynamic',Dynamic)
+exports.Job=mongoose.model('Job',Job)
 exports.User=mongoose.model('User',User)
 exports.Comment=mongoose.model('Comment',Comment)

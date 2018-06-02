@@ -5,7 +5,6 @@ const models=require('../db');
 router.post('/addDynamic',function(req,res){
 	var user=req.body.user
 	var dynamic=new models.Dynamic
-		dynamic.article_id="001"
 		dynamic.title=req.body.title
 		dynamic.content=req.body.content
 		dynamic.p_time=Math.ceil(Date.now()/1000)
@@ -24,8 +23,17 @@ router.get('/getDynamic',function(req,res){
 	models.Dynamic.findOne({_id:id},function(err,data){
 		if(err){
 			res.json({status:500,msg:err})
-		}else{
+		}else if(data){
 			res.json({status:200,msg:'success',data:data})
+		}else{
+			models.Job.findOne({_id:id},function(error,job){
+				if(error){
+					res.json({status:500,msg:error})
+				}else{
+					res.json({status:200,msg:'success',data:job})
+				}
+				
+			})
 		}
 	})
 })
